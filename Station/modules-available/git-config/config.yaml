@@ -1,5 +1,23 @@
 ---
 classname: GitConfig
 
-colors.ui: "true"
-push.default: simple
+core.editor: vim
+
+color.ui: "true"
+color.whitespace: "trailing-space,space-before-tab"
+color.diff: auto
+color.status: auto
+color.branch: auto
+color.log: auto
+
+alias.gl: "log -16 --color=always --all --graph --topo-order --pretty='format: %Cgreen%h%Creset %s%Cred%d%Creset%n'"
+alias.merge: "merge --no-ff"
+alias.up: "merge --ff-only"
+alias.co: checkout
+alias.ci: commit -s
+alias.st: status
+alias.stat: status
+alias.br: branch
+alias.fo: fetch origin
+alias.fu: fetch upstream
+alias.po: push origin

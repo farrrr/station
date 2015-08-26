@@ -7,14 +7,20 @@ defaults:
     split_path_info: '^(.+\.php)(/.+)$'
     pass: "unix:/var/run/php5-fpm.sock"
     index: index.php
-    buffers: "8 16k"
-    buffer_size: 32k
+    param: 'SCRIPT_FILENAME \$document_root$fastcgi_script_name'
+    param: "HTTPS off"
+    intercept_errors: "on"
+    buffers: "256 16k"
+    buffer_size: 128k
     connect_timeout: 300s
-    send_timeout: 60
-    read_timeout: 60
+    busy_buffers_size: 256k
+    temp_file_write_size: 256k
+    send_timeout: 300
+    read_timeout: 300
 
   fastcgi-hhvm:
     split_path_info: '^(.+\.php)(/.+)$'
-    pass: '127.0.0.1:9000'
+    keep_conn: "on"
+    pass: "unix:/var/run/hhvm/hhvm.sock"
     index: index.php
     param: 'SCRIPT_FILENAME \$document_root$fastcgi_script_name'

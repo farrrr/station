@@ -2,4 +2,4 @@
 classname: SourceAliases
 
 defaults:
-  sites: "cd /var/www"
+  sites: "cd /home/Sites"

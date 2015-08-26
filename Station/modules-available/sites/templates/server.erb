@@ -14,12 +14,12 @@ server {
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }
 
-    access_log off;
-    error_log  /var/log/nginx/$1-error.log error;
+    access_log /var/log/nginx/<%= site["map"] %>-access.log;
+    error_log  /var/log/nginx/<%= site["map"] %>-error.log error;
 
-    error_page 404 /index.php;
-
-    sendfile off;
+    if (!-d \$request_filename) {
+        rewrite ^/(.+)/$ /$1 permanent;
+    }
 
     location ~ \.php$ {
         <% fastcgi.each do |key, value| %>
@@ -35,6 +35,11 @@ server {
         <% variables.each do |key, value| %>
         fastcgi_param <%= key %> <%= value %>;
         <% end %>
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires 1y;
+        log_not_found off;
     }
 
     location ~ /\.ht {
